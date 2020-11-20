@@ -8,6 +8,10 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'name' => 'RBC parser',
+    'sourceLanguage'=>'ru_ru',
+    'language'=>'ru',
+    'charset'=>'utf-8',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -41,8 +45,9 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '/' => 'site/index',
-                'news' => 'test/index',
-                'news/<id:\d+>' => 'test/view',
+                'news' => 'parser/parse',
+                'news/<id:\d+>' => 'parser/view',
+                'about' => 'site/about',
             ],
         ],
         'stringHelper' => [

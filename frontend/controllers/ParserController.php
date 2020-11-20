@@ -15,7 +15,26 @@ class ParserController extends Controller
 
         $news = Parser::getNewsList($max);
 
-        return $this->render('parse', ['news' => $news, 'max' => $max]);
+        return $this->render('parse', ['news' => $news]);
+    }
+
+    public function actionView($id)
+    {
+        $item = Parser::getNewsItemById($id);
+
+        return $this->render('view', [
+            'item' => $item,
+        ]);
+
+    }
+
+    public function actionUpdate()
+    {
+        $count = Parser::parseList();
+
+        Yii::$app->session->setFlash('success', 'Success! Latest '. $count .' news were added or updated.');
+        return $this->redirect(['/parser/parse']);
+
     }
 
 }

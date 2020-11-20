@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use GuzzleHttp\Client;
+use frontend\models\News;
 
 
 /**
@@ -15,12 +16,10 @@ class Parser
 
 
     /**
-     * @return array array of live parsed news titles and links
+     * @return int parsed news count
      */
-    public static function parseList($max)
+    public static function parseList()
     {
-        $max = intval ($max);
-
         $client = new Client();
         $res = $client->request('GET', self::URL);
         $body = $res->getBody();
@@ -34,15 +33,8 @@ class Parser
         $tags = $pq->find('.news-feed__item');
 
         $links = self::getLinks($tags);
-        $news = self::getNews($links);
 
-        if(!empty($news) && is_array ($news)){
-                for ($i = 0; $i < $max; $i++) {
-                    $news[$i][2] = Yii::$app->stringHelper->getShort($news[$i][2]);
-                }
-        }
-
-        return $news;
+        return self::getNews($links);
     }
 
     /**
@@ -59,11 +51,12 @@ class Parser
     }
 
     /**
-     * @return array array of full parsed news
+     * @return int parsed news count
      */
     public static function getNews($links)
     {
         $client = new Client();
+        $count = 0;
 
         foreach ($links as $key => $link) {
 
@@ -88,10 +81,9 @@ class Parser
                     'url' => $link
                 ])->execute();
             }
-
-            $news[] = [$title, $picture, $content];
+            $count++;
         }
-        return $news;
+        return $count;
     }
 
     /**
@@ -102,9 +94,7 @@ class Parser
     {
         $max = intval($max);
 
-        $sql = 'SELECT * FROM news LIMIT ' . $max;
-
-        $result = Yii::$app->db->createCommand($sql)->queryAll();
+        $result =  News::find()->orderBy('id DESC')->limit($max)->all();
 
         if (!empty($result) && is_array($result)) {
             foreach ($result as &$item) {
@@ -117,14 +107,12 @@ class Parser
     /**
      *
      * @param integer $id
-     * @return array|false
+     * @return \frontend\models\News
      */
     public static function getNewsItemById($id)
     {
         $id = intval($id);
-        $sql = 'SELECT * FROM news WHERE id =' . $id;
 
-        return Yii::$app->db->createCommand($sql)->queryOne();
-
+        return News::findOne($id);
     }
 }

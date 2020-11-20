@@ -10,7 +10,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>This is the About page. You may modify the following file to customize its content:</p>
-
-    <code><?= __FILE__ ?></code>
+    <p>Спарсить (программно) первые 15 новостей с rbc.ru (блок, откуда брать новости показан на скриншоте)
+        и вставить в базу данных (составить структуру самому) или в файл.
+        Вывести все новости, сократив текст до 200 символов в качестве описания,
+        со ссылкой на полную новость с кнопкой подробнее.
+        На полной новости выводить картинку если есть в новости.
+    </p>
+    <hr>
+    <?php echo Html::img('/img/rbc.png', ['width'=>'800']); ?>
+    <hr>
 </div>

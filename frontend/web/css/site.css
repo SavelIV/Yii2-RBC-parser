@@ -119,3 +119,8 @@ a.desc:after {
     outline: none;
 }
 
+.navbar-brand > img {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
