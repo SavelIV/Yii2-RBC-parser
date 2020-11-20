@@ -12,11 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="row">
     <div class="col-md-9">
-        <h1><?php echo $item['title']; ?></h1>
+        <h1><?php echo Html::encode($item['title']); ?></h1>
         <hr>
         <?php echo Html::img($item['picture'], ['width'=>'800']); ?>
         <hr>
-        <p><?php echo $item['content']; ?></p>
+        <p><?php echo Html::encode($item['content']); ?></p>
         <hr>
         <a href="<?php echo Url::to(['parser/parse']); ?>" class="btn btn-info">Back to all news</a>
     </div>

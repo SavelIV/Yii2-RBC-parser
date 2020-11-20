@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php echo Html::a(Html::img($item['picture'], ['width'=>'400']), $newsLink); ?>
     <hr>
 
-    <p><?php echo $item['content']; ?>...</p>
+    <p><?php echo Html::encode($item['content']); ?>...</p>
 
     <hr>
 
