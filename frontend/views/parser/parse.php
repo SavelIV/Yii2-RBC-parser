@@ -1,9 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-
-/* @var $mas frontend\controllers\ParserController */
-
+/* @var $max frontend\controllers\ParserController */
 /* @var $news frontend\controllers\ParserController */
 
 
@@ -16,15 +14,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>
 
-    <?php for ($i = 0; $i < 15; $i++) { ?>
-        <?php $newsLink = Html::encode($news['href'][$i]); ?>
+<!--    --><?php //for ($i = 0; $i <= $max; $i++) { ?>
+<!--        --><?php //$newsLink = Html::encode($news[$i][1]); ?>
+<!---->
+<!--        <h3>--><?php //echo Html::a(Html::encode($news[$i][0]), $newsLink); ?><!--</h3>-->
+<!--        --><?php //echo Html::img( $news[$i][1], ['width'=>'400']); ?>
+<!---->
+<!--        <p>--><?php //echo Html::encode($news[$i][2]); ?><!--</p>-->
+<!---->
+<!--        <hr>-->
+<!--    --><?php //} ?>
 
-        <h3><?php echo Html::a(Html::encode($news['text'][$i]), $newsLink); ?></h3>
+    <?php foreach ($news as $item): ?>
 
-        <p><?php echo Html::encode($news['data'][$i]); ?></p>
+    <?php $newsLink = Yii::$app->urlManager->createAbsoluteUrl(['news/' . $item['id']]); ?>
 
-        <hr>
-    <?php } ?>
+    <h1><?php echo Html::a(Html::encode($item['title']), $newsLink); ?></h1>
+
+    <?php echo Html::a(Html::img($item['picture'], ['width'=>'400']), $newsLink); ?>
+
+    <p><?php echo $item['content']; ?>...</p>
+
+    <hr>
+
+<?php endforeach; ?>
 
 </div>
 

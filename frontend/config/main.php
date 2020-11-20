@@ -40,6 +40,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/' => 'site/index',
+                'news' => 'test/index',
+                'news/<id:\d+>' => 'test/view',
             ],
         ],
         'stringHelper' => [

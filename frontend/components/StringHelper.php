@@ -6,7 +6,6 @@ use Yii;
 /**
  * Get shorter string (frontend/config/params: shortTextLimit=200)
  *
- * @author Igor
  */
 class StringHelper {
     
